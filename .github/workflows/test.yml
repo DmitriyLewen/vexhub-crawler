@@ -11,11 +11,19 @@ jobs:
     - name: Check out code
       uses: actions/checkout@v4
 
+    - name: Check out VEX Hub
+      uses: actions/checkout@v4
+      with:
+        repository: ${{ github.repository_owner }}/vexhub
+        path: vexhub
+
     - name: Set up Go
       uses: actions/setup-go@v5
       with:
         go-version-file: go.mod
 
+    - name: Test
+      run: go run main.go -strict -vexhub-dir ./vexhub
 
     - name: Unit tests
       run: go test ./...
